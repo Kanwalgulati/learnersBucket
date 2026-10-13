@@ -21,3 +21,19 @@ function removeCycle(obj){
     }
     nestedCycle(obj)
 }
+
+//another method 
+//we can achieve this same functionality using JSON.strigify and its replacer function
+
+function removeCycleUsingJSONStringify(obj){
+    let seen = new WeakSet();
+    return JSON.stringify(obj,(key,value)=>{
+        if(value!=null && typeof value ==="object"){
+            if(seen.has(value)){
+                return undefined;
+            }
+            return seen.add(value);
+        }
+        return value;
+    })
+}
